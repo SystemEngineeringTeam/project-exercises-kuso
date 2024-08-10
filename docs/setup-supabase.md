@@ -51,3 +51,18 @@ yarn supabase db diff --schema public
 ```shell
 yarn supabase db reset
 ```
+
+## ローカルの DB を push
+```shell
+yarn supabase db push
+```
+
+## ローカルの DB を pull
+```shell
+yarn supabase db pull
+```
+
+## 型を生成
+```shell
+yarn supabase gen types typescript --linked > src/types/supabase.ts
+```
