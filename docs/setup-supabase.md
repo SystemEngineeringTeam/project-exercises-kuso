@@ -11,7 +11,7 @@ yarn supabase login
 プロジェクトとローカル環境の Supabase と連携
 
 ```shell
-yarn supabase  link --project-ref <project-ref>
+yarn supabase link --project-ref <project-ref>
 ```
 
 ## プル
