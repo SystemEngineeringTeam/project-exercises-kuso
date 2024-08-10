@@ -30,7 +30,7 @@
     "react/destructuring-assignment": ["error", "always"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "no-restricted-imports": ["error", { "patterns": ["../*"] }],
+    // "no-restricted-imports": ["error", { "patterns": ["../*"] }],
     "import/order": [
       "error",
       {

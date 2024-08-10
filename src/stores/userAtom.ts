@@ -1,9 +1,10 @@
 import { atom } from 'jotai';
-import { supabase } from '@/utils/supabase';
+import { loadable } from 'jotai/utils';
+import { supabase } from '@/utils/supabase/client';
 
 const fetchUser = async () => {
   const res = await supabase.from('z_user').select();
   return res.data;
 };
 
-export const userAtom = atom(async () => await fetchUser());
+export const userAtom = loadable(atom(async () => await fetchUser()));
