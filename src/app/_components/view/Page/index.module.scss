@@ -1,0 +1,56 @@
+.main {
+  height: 100vh;
+  height: 100dvh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    position: relative;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background-color: black;
+      position: absolute;
+      top: 20px;
+    }
+
+    &::before {
+      left: -100px;
+    }
+
+    &::after {
+      right: -100px;
+    }
+  }
+
+  .link {
+    padding-top: 25px;
+    display: flex;
+    gap: 50px;
+
+    a {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: black;
+        transition: 0.5s;
+      }
+
+      &:hover::before {
+        width: 100%;
+      }
+    }
+  }
+}
