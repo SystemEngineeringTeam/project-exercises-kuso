@@ -39,11 +39,11 @@ yarn supabase stop
 ## migration ファイルを作成
 migration ファイルを作成
 ```shell
-yarn supabase migrate new <name>
+yarn supabase migration new <name>
 ```
 
 差分を保存
-```sql
+```shell
 yarn supabase db diff --schema public
 ```
 
