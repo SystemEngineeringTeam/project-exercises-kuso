@@ -3,6 +3,7 @@
     "browser": true,
     "es2021": true
   },
+  "ignorePatterns": ["node_modules/", ".git/", "src/type/types/supabase.ts"],
   "extends": ["airbnb", "airbnb-typescript", "standard-with-typescript", "plugin:react/recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
