@@ -1,0 +1,47 @@
+.header {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 40px;
+    padding-top: 30px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -30vw; /* 線を左に伸ばす長さ */
+      right: -30vw; /* 線を右に伸ばす長さ */
+      bottom: 0;
+      border-bottom: 2px solid black; /* 線の色と太さを指定 */
+    }
+  }
+
+  .link {
+    padding-top: 15px;
+    display: flex;
+    gap: 60px;
+
+    a {
+      font-size: 20px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: black;
+        transition: 0.5s;
+      }
+
+      &:hover::before {
+        width: 100%;
+      }
+    }
+  }
+}
