@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './index.module.scss';
 
 export default function Header() {
@@ -6,9 +7,9 @@ export default function Header() {
       <div>
         <h1>クソコード博覧会</h1>
         <div className={styles.link}>
-          <a href="/codes">鑑賞する</a>
-          <a href="/post">出展する</a>
-          <a href="/mypage">評価をみる</a>
+          <Link href="/codes">鑑賞する</Link>
+          <Link href="/post">出展する</Link>
+          <Link href="/mypage">評価をみる</Link>
         </div>
       </div>
     </header>
