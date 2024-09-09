@@ -33,5 +33,6 @@
   textarea {
     width: 60vw;
     height: 200px;
+    resize: vertical; // 縦のみ可変
   }
 }
