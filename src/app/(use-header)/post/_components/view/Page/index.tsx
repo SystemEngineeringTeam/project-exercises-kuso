@@ -1,35 +1,36 @@
 'use client';
+
 import { useState } from 'react';
 import styles from './index.module.scss';
 
 export default function Page() {
-  const [title, setTitle] = useState(''); // 本来は title, setTitle は引数から受け取る
-  const [description, setDescription] = useState('');
+  const [title, _setTitle] = useState(''); // 本来は title, setTitle は引数から受け取る
+  const [description, _setDescription] = useState('');
   const [language, setLanguage] = useState('');
-  const [tag, setTag] = useState('');
-  const [code, setCode] = useState('');
+  const [tag, _setTag] = useState('');
+  const [code, _setCode] = useState('');
 
   return (
     <div>
       <div className={styles.container}>
         <div className={styles.card}>
           <p>Title</p>
-          <input type="text" value={title} placeholder="タイトルを入力してください"></input>
+          <input placeholder="タイトルを入力してください" type="text" value={title} />
         </div>
         <div className={styles.card}>
           <p>Description</p>
-          <input type="text" value={description} placeholder="説明を入力してください"></input>
+          <input placeholder="説明を入力してください" type="text" value={description} />
         </div>
         <div className={styles.card}>
           <p>Language</p>
-          <select name="languages" value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <select name="languages" onChange={(e) => { setLanguage(e.target.value); }} value={language}>
             <option value="">言語を選択してください</option>
             {/* ここに言語の選択肢を追加していく */}
           </select>
         </div>
         <div className={styles.card}>
           <p>Tags</p>
-          <input type="text" value={tag} placeholder="タグを入力してください"></input>
+          <input placeholder="タグを入力してください" type="text" value={tag} />
         </div>
       </div>
       <div className={styles.codeArea}>
