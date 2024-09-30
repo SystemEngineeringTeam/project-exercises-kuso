@@ -3,7 +3,21 @@
 import { useState } from 'react';
 import styles from './index.module.scss';
 
-export default function Page() {
+interface PageProps {
+  post: {
+    title: string;
+    description: string;
+    tags: string[];
+    code: string;
+  };
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setTags: (tags: string[]) => void;
+  setCode: (code: string) => void;
+  submit: () => void;
+}
+
+export default function Page({ post, setTitle, setDescription, setTags, setCode, submit }: PageProps) {
   const [title, _setTitle] = useState(''); // 本来は title, setTitle は引数から受け取る
   const [description, _setDescription] = useState('');
   const [language, setLanguage] = useState('');

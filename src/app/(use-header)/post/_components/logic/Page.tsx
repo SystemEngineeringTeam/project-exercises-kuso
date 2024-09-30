@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import Page from '../view/Page';
 
 interface Post {
   title: string;
   description: string;
   tags: string[];
   code: string;
+  language: string;
 }
 
 export default function PostPageLogic() {
@@ -13,6 +15,7 @@ export default function PostPageLogic() {
     description: '',
     tags: [],
     code: '',
+    language: '',
   });
 
   // titleをセットする関数
@@ -33,6 +36,10 @@ export default function PostPageLogic() {
   function setCode(code: string) {
     setPost((prev) => ({ ...prev, code }));
   }
+  // languageをセットする関数
+  function setLanguage(language: string) {
+    setPost((prev) => ({ ...prev, language }));
+  }
 
   // 投稿処理
   function submit() {
@@ -40,12 +47,14 @@ export default function PostPageLogic() {
     console.log(post); // eslint-disable-line no-console
   }
 
-  return {
-    post,
-    setTitle,
-    setDescription,
-    setTags,
-    setCode,
-    submit,
-  };
+  return (
+    <Page
+      post={post}
+      setTitle={setTitle}
+      setDescription={setDescription}
+      setTags={setTags}
+      setCode={setCode}
+      submit={submit}
+    />
+  );
 }
