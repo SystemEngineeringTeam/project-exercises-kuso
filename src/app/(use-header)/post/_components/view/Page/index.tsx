@@ -23,7 +23,13 @@ export default function Page() {
         </div>
         <div className={styles.card}>
           <p>Language</p>
-          <select name="languages" onChange={(e) => { setLanguage(e.target.value); }} value={language}>
+          <select
+            name="languages"
+            onChange={(e) => {
+              setLanguage(e.target.value);
+            }}
+            value={language}
+          >
             <option value="">言語を選択してください</option>
             {/* ここに言語の選択肢を追加していく */}
           </select>
