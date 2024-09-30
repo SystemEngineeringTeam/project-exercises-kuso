@@ -2,7 +2,8 @@
 
 import styles from './index.module.scss';
 import { authAtom } from '@/stores/authAtom';
-import { useAtomValue } from 'jotai';
+import { supabase } from '@/utils/supabase/client';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react';
 
 interface Props {
@@ -17,15 +18,21 @@ export default function LoginProvider({ children }: Props) {
 }
 
 function LoginPage() {
+  const setAuth = useSetAtom(authAtom);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Login', email, password);
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) throw new Error(error.message);
+
+    console.log(data);
+    setAuth({ email, password });
   };
 
   return (
