@@ -1,8 +1,210 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never;
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      graphql: {
+        Args: {
+          operationName?: string;
+          query?: string;
+          variables?: Json;
+          extensions?: Json;
+        };
+        Returns: Json;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
+      crazy_score: {
+        Row: {
+          checked_user_uid: string;
+          created_at: string;
+          id: number;
+          post_id: number;
+          score: number;
+          updated_at: string;
+        };
+        Insert: {
+          checked_user_uid: string;
+          created_at?: string;
+          id?: number;
+          post_id: number;
+          score: number;
+          updated_at?: string;
+        };
+        Update: {
+          checked_user_uid?: string;
+          created_at?: string;
+          id?: number;
+          post_id?: number;
+          score?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'crazy_score_checked_user_uid_fkey';
+            columns: ['checked_user_uid'];
+            isOneToOne: false;
+            referencedRelation: 'user';
+            referencedColumns: ['uid'];
+          },
+          {
+            foreignKeyName: 'crazy_score_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'post';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      language: {
+        Row: {
+          id: number;
+          name: string;
+        };
+        Insert: {
+          id?: number;
+          name: string;
+        };
+        Update: {
+          id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      post: {
+        Row: {
+          code: string;
+          created_at: string;
+          deleted_at: string | null;
+          description: string;
+          id: number;
+          lang_id: number;
+          title: string;
+          user_uid: string;
+        };
+        Insert: {
+          code: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          description: string;
+          id?: number;
+          lang_id: number;
+          title: string;
+          user_uid: string;
+        };
+        Update: {
+          code?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+          description?: string;
+          id?: number;
+          lang_id?: number;
+          title?: string;
+          user_uid?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'post_lang_id_fkey';
+            columns: ['lang_id'];
+            isOneToOne: false;
+            referencedRelation: 'language';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'post_user_uid_fkey';
+            columns: ['user_uid'];
+            isOneToOne: false;
+            referencedRelation: 'user';
+            referencedColumns: ['uid'];
+          },
+        ];
+      };
+      post_tag: {
+        Row: {
+          id: number;
+          post_id: number;
+          tag_id: number;
+        };
+        Insert: {
+          id?: number;
+          post_id: number;
+          tag_id: number;
+        };
+        Update: {
+          id?: number;
+          post_id?: number;
+          tag_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'post_tag_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'post';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'post_tag_tag_id_fkey';
+            columns: ['tag_id'];
+            isOneToOne: false;
+            referencedRelation: 'tag';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      tag: {
+        Row: {
+          id: number;
+          name: string;
+        };
+        Insert: {
+          id?: number;
+          name: string;
+        };
+        Update: {
+          id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      user: {
+        Row: {
+          created_at: string;
+          deleted_at: string | null;
+          id: number;
+          name: string;
+          uid: string;
+        };
+        Insert: {
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: number;
+          name: string;
+          uid?: string;
+        };
+        Update: {
+          created_at?: string;
+          deleted_at?: string | null;
+          id?: number;
+          name?: string;
+          uid?: string;
+        };
+        Relationships: [];
+      };
       z_favorite_animal: {
         Row: {
           created_at: string;
