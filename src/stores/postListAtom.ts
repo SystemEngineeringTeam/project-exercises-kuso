@@ -1,30 +1,9 @@
 import { atom } from 'jotai';
-import { type PostTag, type Post, type User } from '@/types/post';
+import { type Post } from '@/types/post';
 import { supabase } from '@/utils/supabase/client';
 
-interface ResPost {
-  code: string;
-  description: string;
-  id: number;
-  lang_id: number;
-  title: string;
-  user_uid: string;
-  language: {
-    id: number;
-    name: string;
-  } | null;
-  user: User | null;
-  post_tag: Array<{
-    id: number;
-    tag: string;
-  }> | null;
-  crazy_score: Array<{
-    score: number;
-  }> | null;
-}
-
-const fetchUser = async (): Promise<Post[]> => {
-  const resPosts = await supabase.from('post').select(`
+const fetchPostList = async (): Promise<Post[]> => {
+  const resPostList = await supabase.from('post').select(`
     *,
     language (
       id,
@@ -44,11 +23,11 @@ const fetchUser = async (): Promise<Post[]> => {
     )
   `);
 
-  if (resPosts.data === null) {
+  if (resPostList.data === null) {
     throw new Error('Error fetching data');
   }
 
-  return resPosts.data.map((resPost: ResPost) => {
+  return resPostList.data.map((resPost) => {
     if (
       resPost.language === null ||
       resPost.user === null ||
@@ -65,7 +44,7 @@ const fetchUser = async (): Promise<Post[]> => {
     const postTags = resPost.post_tag.map((tag) => ({
       ...tag,
       post_id: resPost.id,
-    })) as PostTag[];
+    }));
 
     return {
       id: resPost.id,
@@ -80,4 +59,4 @@ const fetchUser = async (): Promise<Post[]> => {
   });
 };
 
-export const postAtom = atom(async () => await fetchUser());
+export const postListAtom = atom(async () => await fetchPostList());
