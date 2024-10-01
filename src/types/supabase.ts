@@ -137,17 +137,17 @@ export type Database = {
         Row: {
           id: number;
           post_id: number;
-          tag_id: number;
+          tag: string;
         };
         Insert: {
           id?: number;
           post_id: number;
-          tag_id: number;
+          tag: string;
         };
         Update: {
           id?: number;
           post_id?: number;
-          tag_id?: number;
+          tag?: string;
         };
         Relationships: [
           {
@@ -157,29 +157,7 @@ export type Database = {
             referencedRelation: 'post';
             referencedColumns: ['id'];
           },
-          {
-            foreignKeyName: 'post_tag_tag_id_fkey';
-            columns: ['tag_id'];
-            isOneToOne: false;
-            referencedRelation: 'tag';
-            referencedColumns: ['id'];
-          },
         ];
-      };
-      tag: {
-        Row: {
-          id: number;
-          name: string;
-        };
-        Insert: {
-          id?: number;
-          name: string;
-        };
-        Update: {
-          id?: number;
-          name?: string;
-        };
-        Relationships: [];
       };
       user: {
         Row: {

@@ -11,7 +11,7 @@ export interface User {
 export interface PostTag {
   id: number;
   post_id: number;
-  tag_id: number;
+  tag: string;
 }
 
 // 投稿の言語の型
