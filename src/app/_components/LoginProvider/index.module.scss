@@ -1,0 +1,24 @@
+.main {
+  text-align: center;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  form {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+
+    .submit_area {
+      grid-column: 1 / -1;
+
+      button[type='submit'] {
+        padding: 8px 10px;
+        border: solid 1px $primary-color;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+  }
+}
