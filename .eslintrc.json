@@ -29,6 +29,7 @@
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": "off",
+    "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-uses-react": "off",
     "react/jsx-props-no-spreading": "off",
