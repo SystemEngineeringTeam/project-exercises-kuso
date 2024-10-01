@@ -3,8 +3,6 @@ export interface User {
   id: number;
   name: string;
   uid: string;
-  created_at: Date;
-  deleted_at: Date | null;
 }
 
 // 投稿のタグの型
@@ -30,6 +28,4 @@ export interface Post {
   post_tags: PostTag[];
   user: User;
   language: PostLanguage;
-  created_at: Date;
-  deleted_at: Date | null;
 }
