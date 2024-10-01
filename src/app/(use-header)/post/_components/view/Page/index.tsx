@@ -1,12 +1,11 @@
 'use client';
 
-import { PostLanguage, PostTag } from '@/types/post';
-import { TablesInsert } from '@/types/supabase';
+import { type Dispatch, type SetStateAction } from 'react';
 import styles from './index.module.scss';
-import { Dispatch, SetStateAction } from 'react';
+import { type PostLanguage, type PostTag } from '@/types/post';
+import { type TablesInsert } from '@/types/supabase';
 
 type Post = Partial<TablesInsert<'post'>>;
-type tag = { tags: string[] };
 interface PageProps {
   post: Post;
   tag: PostTag[] | undefined;
@@ -20,6 +19,8 @@ interface PageProps {
   submit: () => void;
   tagString: string;
   setTagString: Dispatch<SetStateAction<string>>;
+  languageString: string;
+  setLanguageString: Dispatch<SetStateAction<string>>;
 }
 
 export default function Page({
@@ -35,6 +36,8 @@ export default function Page({
   submit,
   tagString,
   setTagString,
+  languageString,
+  setLanguageString,
 }: PageProps) {
   return (
     <div>
@@ -52,9 +55,9 @@ export default function Page({
           <select
             name="languages"
             onChange={(e) => {
-              setLanguage(e.target.value);
+              setLanguageString(e.target.value);
             }}
-            value={language}
+            value={languageString}
           >
             {/* ここにlanguageのIDを入れる,文字のところにはnameを入れる */}
             <option value="">言語を選択してください</option>
@@ -64,12 +67,12 @@ export default function Page({
         <div className={styles.card}>
           <p>Tags</p>
           <input
-            placeholder="タグを入力してください"
-            type="text"
-            value={tagString}
             onChange={(e) => {
               setTagString(e.target.value);
             }}
+            placeholder="タグを入力してください"
+            type="text"
+            value={tagString}
           />
         </div>
       </div>
