@@ -1,20 +1,20 @@
 'use client';
 
 import { useAtomValue, useSetAtom } from 'jotai';
-import { type ChangeEvent, type FormEvent, type ReactNode, useState } from 'react';
+import { type ChangeEvent, type FormEvent, type ReactElement, useState } from 'react';
 import styles from './index.module.scss';
 import { authAtom } from '@/stores/authAtom';
 import { supabase } from '@/utils/supabase/client';
 
 interface Props {
-  children: ReactNode;
+  children: ReactElement;
 }
 
-export default async function LoginProvider({ children }: Props) {
+export default function LoginProvider({ children }: Props) {
   const auth = useAtomValue(authAtom);
 
   if (auth === undefined) return <LoginPage />;
-  return await children;
+  return children;
 }
 
 function LoginPage() {
