@@ -117,7 +117,7 @@ const articles: Post[] = [
 
 export default function Page() {
   return (
-    <div>
+    <div className={styles.containers}>
       {articles.map((post) => (
           <div key={post.id} className={styles.container}>
             <h1>{post.title}</h1>
