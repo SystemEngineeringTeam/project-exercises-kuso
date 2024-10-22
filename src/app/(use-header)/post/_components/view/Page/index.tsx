@@ -11,13 +11,11 @@ interface PageProps {
   language: PostLanguage[];
   setCode: (code: string) => void;
   setDescription: (description: string) => void;
-  setLangId: (lang_id: number) => void;
   setTitle: (title: string) => void;
   setUserUid: (user_uid: string) => void;
   submit: () => void;
   tagString: string;
   setTagString: Dispatch<SetStateAction<string>>;
-  languageString: string;
   setLanguageString: Dispatch<SetStateAction<string>>;
 }
 
@@ -26,13 +24,11 @@ export default function Page({
   language,
   setCode,
   setDescription,
-  setLangId,
   setTitle,
   setUserUid,
   submit,
   tagString,
   setTagString,
-  languageString,
   setLanguageString,
 }: PageProps) {
   return (
@@ -66,9 +62,7 @@ export default function Page({
             name="languages"
             onChange={(e) => {
               setLanguageString(e.target.value);
-              setLangId(Number(e.target.value));
             }}
-            value={languageString}
           >
             {/* ここにlanguageのIDを入れる,文字のところにはnameを入れる */}
             <option value="">言語を選択してください</option>
@@ -94,17 +88,19 @@ export default function Page({
       </div>
       <div className={styles.codeArea}>
         <p>Kuso Code</p>
-        <textarea id="codeText" name="code">
+        <textarea
+          id="codeText"
+          name="code"
+          onChange={(e) => {
+            setCode(e.target.value);
+          }}
+        >
           {post.code}{' '}
         </textarea>
-
-        {/* textAreaの値をセット */}
+      </div>
+      <div>
         <button
           onClick={() => {
-            const element = document.getElementById('codeText') as HTMLTextAreaElement;
-            if (element !== null) {
-              setCode(element.value);
-            }
             setUserUid('test');
             submit();
           }}

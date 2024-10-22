@@ -55,11 +55,19 @@ export default function PostPageLogic() {
   // languageStringをidに変換
   function changeToId(languageStr: string) {
     const langId = Number(languageStr);
+
+    // idが存在するか確認
+    if (!languages.some((lang) => lang.id === langId)) {
+      console.log('存在しないidです'); // eslint-disable-line no-console
+      return;
+    }
+
+    // 言語のidをセット
     setLangId(langId);
 
     // 言語のnameを取得
-    const language = languages.find((lang) => lang.id === langId);
-    console.log(language); // eslint-disable-line no-console
+    const langage = languages.find((lang) => lang.id === langId);
+    console.log(langage); // eslint-disable-line no-console
   }
 
   // 投稿処理
@@ -77,11 +85,9 @@ export default function PostPageLogic() {
   return (
     <Page
       language={languages}
-      languageString={languageString}
       post={post}
       setCode={setCode}
       setDescription={setDescription}
-      setLangId={setLangId}
       setLanguageString={setLanguageString}
       setTagString={setTagString}
       setTitle={setTitle}
