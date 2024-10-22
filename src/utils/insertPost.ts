@@ -6,7 +6,7 @@ const insertPost = async (
   tags: string[],
 ): Promise<Tables<'post'> | undefined> => {
   const { data, error: postError } = await supabase.from('post').insert(table).select('*');
-  if (postError !== null) {
+  if (postError !== null || data.length === 0) {
     return undefined;
   }
 
