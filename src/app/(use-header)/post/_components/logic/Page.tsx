@@ -1,13 +1,15 @@
+'use client';
+
 import { useState } from 'react';
 import Page from '../view/Page';
-import { type PostLanguage, type PostTag } from '@/types/post';
+import { type PostLanguage } from '@/types/post';
 import { type TablesInsert } from '@/types/supabase';
 
 type Post = Partial<TablesInsert<'post'>>;
 
 export default function PostPageLogic() {
   const [post, setPost] = useState<Post>({});
-  const [tag, setTag] = useState<PostTag[]>();
+  const [, setTag] = useState<string[]>([]);
   const [tagString, setTagString] = useState<string>('');
   const [languageString, setLanguageString] = useState<string>('');
 
@@ -39,15 +41,15 @@ export default function PostPageLogic() {
   }
 
   // tagsのセット
-  function setTags(tags: PostTag[]) {
+  function setTags(tags: string[]) {
     setTag(tags);
   }
 
   // コンマ区切りのタグを配列に変換
   function changeToArray(tagStr: string) {
     const tags = tagStr.split(',');
-    const postTags = tags.map((t) => ({ tag: t }));
-    console.log(postTags); // eslint-disable-line no-console
+    setTags(tags);
+    console.log(tags); // eslint-disable-line no-console
   }
 
   // languageStringをidに変換
@@ -81,12 +83,10 @@ export default function PostPageLogic() {
       setDescription={setDescription}
       setLangId={setLangId}
       setLanguageString={setLanguageString}
-      setTags={setTags}
       setTagString={setTagString}
       setTitle={setTitle}
       setUserUid={setUserUid}
       submit={submit}
-      tag={tag}
       tagString={tagString}
     />
   );
