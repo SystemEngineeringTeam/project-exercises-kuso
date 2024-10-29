@@ -1,47 +1,112 @@
 'use client';
 
-import { useState } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import styles from './index.module.scss';
+import { type PostLanguage } from '@/types/post';
+import { type TablesInsert } from '@/types/supabase';
 
-export default function Page() {
-  const [title, _setTitle] = useState(''); // 本来は title, setTitle は引数から受け取る
-  const [description, _setDescription] = useState('');
-  const [language, setLanguage] = useState('');
-  const [tag, _setTag] = useState('');
-  const [code, _setCode] = useState('');
+type Post = Partial<TablesInsert<'post'>>;
+interface PageProps {
+  post: Post;
+  language: PostLanguage[];
+  setCode: (code: string) => void;
+  setDescription: (description: string) => void;
+  setTitle: (title: string) => void;
+  setUserUid: (user_uid: string) => void;
+  submit: () => void;
+  tagString: string;
+  setTagString: Dispatch<SetStateAction<string>>;
+  setLanguageString: Dispatch<SetStateAction<string>>;
+}
 
+export default function Page({
+  post,
+  language,
+  setCode,
+  setDescription,
+  setTitle,
+  setUserUid,
+  submit,
+  tagString,
+  setTagString,
+  setLanguageString,
+}: PageProps) {
   return (
     <div>
       <div className={styles.container}>
         <div className={styles.card}>
           <p>Title</p>
-          <input placeholder="タイトルを入力してください" type="text" value={title} />
+          <input
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            placeholder="タイトルを入力してください"
+            type="text"
+            value={post.title ?? ''}
+          />
         </div>
         <div className={styles.card}>
           <p>Description</p>
-          <input placeholder="説明を入力してください" type="text" value={description} />
+          <input
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            placeholder="説明を入力してください"
+            type="text"
+            value={post.description ?? ''}
+          />
         </div>
         <div className={styles.card}>
           <p>Language</p>
           <select
             name="languages"
             onChange={(e) => {
-              setLanguage(e.target.value);
+              setLanguageString(e.target.value);
             }}
-            value={language}
           >
+            {/* ここにlanguageのIDを入れる,文字のところにはnameを入れる */}
             <option value="">言語を選択してください</option>
             {/* ここに言語の選択肢を追加していく */}
+            {language.map((lang) => (
+              <option key={lang.id} value={String(lang.id)}>
+                {lang.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.card}>
           <p>Tags</p>
-          <input placeholder="タグを入力してください" type="text" value={tag} />
+          <input
+            onChange={(e) => {
+              setTagString(e.target.value);
+            }}
+            placeholder="タグを入力してください"
+            type="text"
+            value={tagString}
+          />
         </div>
       </div>
       <div className={styles.codeArea}>
         <p>Kuso Code</p>
-        <textarea name="code">{code}</textarea>
+        <textarea
+          id="codeText"
+          name="code"
+          onChange={(e) => {
+            setCode(e.target.value);
+          }}
+          value={post.code ?? ''}
+        />
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            setUserUid('test');
+            submit();
+          }}
+          type="button"
+        >
+          投稿
+        </button>
       </div>
     </div>
   );
