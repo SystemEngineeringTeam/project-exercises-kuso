@@ -1,10 +1,9 @@
 import { atom } from 'jotai';
+import { authAtom } from './authAtom';
 import { type Post } from '@/types/post';
 import { supabase } from '@/utils/supabase/client';
 
-type UUID = `${string}-${string}-${string}-${string}-${string}`;
-
-async function fetchUserPostList(userUid: UUID): Promise<Post[]> {
+async function fetchUserPostList(userUid: string): Promise<Post[]> {
   const resPostList = await supabase
     .from('post')
     .select(
@@ -66,12 +65,11 @@ async function fetchUserPostList(userUid: UUID): Promise<Post[]> {
   });
 }
 
-export const userNameAtom = atom<UUID | null>(null);
-
 export const userPostListAtom = atom(async (get) => {
-  const userName = get(userNameAtom);
-  if (userName === null) {
+  const auth = get(authAtom);
+  if (auth === undefined) {
     return [];
   }
-  return await fetchUserPostList(userName);
+
+  return await fetchUserPostList(auth.uid);
 });
