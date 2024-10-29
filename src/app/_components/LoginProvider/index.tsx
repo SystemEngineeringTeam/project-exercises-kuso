@@ -1,7 +1,7 @@
 'use client';
 
 import { useAtomValue, useSetAtom } from 'jotai';
-import { type ChangeEvent, type FormEvent, type ReactElement, useState } from 'react';
+import { type ChangeEvent, type FormEvent, type ReactElement, useState, useSyncExternalStore } from 'react';
 import styles from './index.module.scss';
 import { authAtom } from '@/stores/authAtom';
 import { supabase } from '@/utils/supabase/client';
@@ -10,11 +10,23 @@ interface Props {
   children: ReactElement;
 }
 
+const subscribe = (callback: () => void) => {
+  window.addEventListener('storage', callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+  };
+};
+
 export default function LoginProvider({ children }: Props) {
   const auth = useAtomValue(authAtom);
+  const unauthorized = useSyncExternalStore(
+    subscribe,
+    () => localStorage.getItem('unauth') === 'true',
+    () => null,
+  );
 
-  if (auth === undefined) return <LoginPage />;
-  return children;
+  if (auth !== undefined || unauthorized === true) return children;
+  return <LoginPage />;
 }
 
 function LoginPage() {
