@@ -10,7 +10,7 @@ export default function RootLayout({
     <>
       <Header />
       {/* <LoginProvider> */}
-        <main>{children}</main>
+      <main>{children}</main>
       {/* </LoginProvider> */}
     </>
   );

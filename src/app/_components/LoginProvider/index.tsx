@@ -35,10 +35,11 @@ function LoginPage() {
 
       const { data, error } = await supabase.auth.signUp({ email, password });
       if (error != null) throw new Error(error.message);
+      if (data.user?.id == null) throw new Error('No user id');
 
       // eslint-disable-next-line no-console
       console.log(data);
-      setAuth({ email, password });
+      setAuth({ email, password, uid: data.user?.id });
     })();
   };
 
