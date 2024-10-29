@@ -1,5 +1,5 @@
 import Header from '../_components/Header';
-// import LoginProvider from '../_components/LoginProvider';
+import LoginProvider from '../_components/LoginProvider';
 
 export default function RootLayout({
   children,
@@ -9,9 +9,9 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      {/* <LoginProvider> */}
-      <main>{children}</main>
-      {/* </LoginProvider> */}
+      <LoginProvider>
+        <main>{children}</main>
+      </LoginProvider>
     </>
   );
 }
