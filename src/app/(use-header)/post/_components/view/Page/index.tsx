@@ -42,7 +42,7 @@ export default function Page({
             }}
             placeholder="タイトルを入力してください"
             type="text"
-            value={post.title}
+            value={post.title ?? ''}
           />
         </div>
         <div className={styles.card}>
@@ -53,7 +53,7 @@ export default function Page({
             }}
             placeholder="説明を入力してください"
             type="text"
-            value={post.description}
+            value={post.description ?? ''}
           />
         </div>
         <div className={styles.card}>
@@ -94,9 +94,8 @@ export default function Page({
           onChange={(e) => {
             setCode(e.target.value);
           }}
-        >
-          {post.code}{' '}
-        </textarea>
+          value={post.code ?? ''}
+        />
       </div>
       <div>
         <button
