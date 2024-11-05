@@ -49,7 +49,7 @@
     border-radius: 10px;
     background-color: $background-color;
     cursor: pointer;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:hover {
       background-color: color-mix(in srgb, $background-color, $on-background-color 10%);
