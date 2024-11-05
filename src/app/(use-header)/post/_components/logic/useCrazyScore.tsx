@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type CrazyScore = undefined | 0 | 1 | 2 | 3;
+type CrazyScore = 0 | 1 | 2 | 3;
 
 export const useCrazyScore = () => {
   const [value, setValue] = useState<CrazyScore>();
