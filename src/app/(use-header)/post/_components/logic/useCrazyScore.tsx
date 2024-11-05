@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 
-export const useCrazyScore = () => {
-  const [value, setValue] = useState<number | undefined>(undefined);
+type CrazyScore = undefined | 0 | 1 | 2 | 3;
 
-  const updateValue = (newValue: number) => {
+export const useCrazyScore = () => {
+  const [value, setValue] = useState<CrazyScore>();
+
+  const updateValue = (newValue: CrazyScore) => {
     if (newValue === value) {
       setValue(undefined);
+    } else {
+      setValue(newValue);
     }
-    setValue(newValue);
   };
 
   useEffect(() => {
