@@ -1,6 +1,5 @@
-'use client';
-
 import styles from './index.module.scss';
+import CodeArea from '@/components/CodeArea';
 import { type Post } from '@/types/post';
 
 const articles: Post[] = [
@@ -119,7 +118,7 @@ function Card({ post }: CardProps) {
         ))}
       </div>
       <p>{post.description}</p>
-      <p>{post.code}</p>
+      <CodeArea code={post.code} language={post.language.name.toLowerCase()} />
       <div className={styles.userAndValue}>
         <div className={styles.user}>
           <img

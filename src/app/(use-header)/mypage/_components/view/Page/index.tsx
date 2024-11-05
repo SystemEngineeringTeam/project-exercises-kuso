@@ -1,6 +1,5 @@
-'use client';
-
 import styles from './index.module.scss';
+import CodeArea from '@/components/CodeArea';
 import { type Post } from '@/types/post';
 
 const articles: Post[] = [
@@ -109,7 +108,7 @@ export default function Page() {
           <p>{post.description}</p>
           <details>
             <summary>Code</summary>
-            <p>{post.code}</p>
+            <CodeArea code={post.code} language={post.language.name.toLowerCase()} />
           </details>
           <div className={styles.score_box}>
             <div className={styles.kuso_box}>
