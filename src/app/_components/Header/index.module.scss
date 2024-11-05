@@ -4,19 +4,20 @@
   justify-content: center;
   align-items: center;
 
+  &::after {
+    content: '';
+    display: block;
+    right: min(10%, 200px);
+    left: min(10%, 200px);
+    top: 78px;
+    position: absolute;
+    border-bottom: solid $border-width $on-background-color; /* 線の色と太さを指定 */
+  }
+
   h1 {
     font-size: $font-size-xl;
     padding-top: 30px;
     position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: -30vw; /* 線を左に伸ばす長さ */
-      right: -30vw; /* 線を右に伸ばす長さ */
-      bottom: 0;
-      border-bottom: solid $border-width $on-background-color; /* 線の色と太さを指定 */
-    }
   }
 
   .link {
