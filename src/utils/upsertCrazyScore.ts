@@ -1,7 +1,7 @@
 import { supabase } from './supabase/client';
 import type { Tables, TablesInsert } from '@/types/supabase';
 
-const insertCrazyScore = async (
+const upsertCrazyScore = async (
   table: Omit<TablesInsert<'crazy_score'>, 'id' | 'created_at' | 'deleted_at'>,
 ): Promise<Tables<'crazy_score'> | undefined> => {
   const { data } = await supabase.from('crazy_score').upsert(table).select('*');
@@ -13,4 +13,4 @@ const insertCrazyScore = async (
   return data[0];
 };
 
-export default insertCrazyScore;
+export default upsertCrazyScore;
