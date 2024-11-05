@@ -99,27 +99,42 @@ export default function Page() {
   return (
     <div className={styles.containers}>
       {articles.map((post) => (
-        <div key={post.id} className={styles.container}>
-          <h1>{post.title}</h1>
-          <div className={styles.tags}>
-            {post.post_tags.map((tag) => (
-              <p key={tag.id}>{tag.tag}</p>
-            ))}
-          </div>
-          <p>{post.description}</p>
-          <details>
-            <summary>Code</summary>
-            <p>{post.code}</p>
-          </details>
-          <div className={styles.score_box}>
-            <div className={styles.kuso_box}>
-              <img alt="unko" src="unko.svg" style={{ ['--score' as string]: `${post.crazy_score * 20}%` }} />
-              <img alt="unko" src="unko.svg" />
-            </div>
-            <p>{post.crazy_score}</p>
-          </div>
-        </div>
+        <Card key={post.id} post={post} />
       ))}
+    </div>
+  );
+}
+
+interface CardProps {
+  post: Post;
+}
+
+function Card({ post }: CardProps) {
+  return (
+    <div key={post.id} className={styles.container}>
+      <h1>{post.title}</h1>
+      <div className={styles.tags}>
+        {post.post_tags.map((tag) => (
+          <p key={tag.id}>{tag.tag}</p>
+        ))}
+      </div>
+      <p>{post.description}</p>
+      <p>{post.code}</p>
+      <div className={styles.userAndValue}>
+        <div className={styles.user}>
+          <img
+            alt="user_icon"
+            src="https://img.esa.io/uploads/production/attachments/19973/2024/10/22/148910/a3ad87c4-103f-4a77-8de4-bb1c89b42a38.png"
+          />
+          <p>{post.user.name}</p>
+        </div>
+        <div className={styles.buttons}>
+          <button type="button">クソだね</button>
+          <button type="button">よくないね</button>
+          <button type="button">ふーん</button>
+          <button type="button">へぇ、いいじゃん</button>
+        </div>
+      </div>
     </div>
   );
 }
