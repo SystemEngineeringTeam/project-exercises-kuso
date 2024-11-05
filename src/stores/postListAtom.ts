@@ -27,6 +27,18 @@ const fetchPostList = async (): Promise<Post[]> => {
     throw new Error('Error fetching data');
   }
 
+  const averageCrazyScores: Array<{
+    post_id: number;
+    score: number;
+  }> = resPostList.data.map((post) => {
+    const sumScore = post.crazy_score.reduce((prev, current) => prev + current.score, 0);
+    const averageScore = sumScore / post.crazy_score.length;
+    return {
+      post_id: post.id,
+      score: averageScore,
+    };
+  });
+
   return resPostList.data.map((resPost) => {
     if (
       resPost.language === null ||
@@ -37,14 +49,15 @@ const fetchPostList = async (): Promise<Post[]> => {
       throw new Error('Error fetching data');
     }
 
-    const averageCrazyScore =
-      resPost.crazy_score.reduce((acc: number, cur: { score: number }) => acc + cur.score, 0) /
-      resPost.crazy_score.length;
-
     const postTags = resPost.post_tag.map((tag) => ({
       ...tag,
       post_id: resPost.id,
     }));
+
+    const averageCrazyScore = averageCrazyScores.find((score) => score.post_id === resPost.id)?.score;
+    if (averageCrazyScore === undefined) {
+      throw new Error('Error averaging score is undefined');
+    }
 
     return {
       id: resPost.id,
