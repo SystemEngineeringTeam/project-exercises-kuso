@@ -12,7 +12,6 @@ interface PageProps {
   setCode: (code: string) => void;
   setDescription: (description: string) => void;
   setTitle: (title: string) => void;
-  setUserUid: (user_uid: string) => void;
   submit: () => void;
   tagString: string;
   setTagString: Dispatch<SetStateAction<string>>;
@@ -25,7 +24,6 @@ export default function Page({
   setCode,
   setDescription,
   setTitle,
-  setUserUid,
   submit,
   tagString,
   setTagString,
@@ -86,6 +84,7 @@ export default function Page({
           />
         </div>
       </div>
+
       <div className={styles.codeArea}>
         <p>Kuso Code</p>
         <textarea
@@ -97,14 +96,9 @@ export default function Page({
           value={post.code ?? ''}
         />
       </div>
-      <div>
-        <button
-          onClick={() => {
-            setUserUid('test');
-            submit();
-          }}
-          type="button"
-        >
+
+      <div className={styles.buttonArea}>
+        <button onClick={submit} type="button">
           投稿
         </button>
       </div>

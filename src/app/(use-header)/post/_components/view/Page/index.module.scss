@@ -36,3 +36,22 @@
     resize: vertical; // 縦のみ可変
   }
 }
+
+.buttonArea {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 5px 8px;
+    border: solid 1.5px;
+    border-radius: 10px;
+    background-color: $background-color;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      background-color: color-mix(in srgb, $background-color, $on-background-color 10%);
+    }
+  }
+}
