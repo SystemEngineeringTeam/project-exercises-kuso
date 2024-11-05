@@ -3,8 +3,10 @@
 import { useAtomValue } from 'jotai';
 import { useState } from 'react';
 import Page from '../view/Page';
+import { authAtom } from '@/stores/authAtom';
 import { langAtom } from '@/stores/langAtom';
 import { type TablesInsert } from '@/types/supabase';
+import insertPost from '@/utils/insertPost';
 
 type Post = Partial<TablesInsert<'post'>>;
 
@@ -13,6 +15,7 @@ export default function PostPageLogic() {
   const [tagString, setTagString] = useState<string>('');
   const [languageString, setLanguageString] = useState<string>('');
 
+  const auth = useAtomValue(authAtom);
   const languages = useAtomValue(langAtom);
 
   function setCode(code: string) {
@@ -48,12 +51,47 @@ export default function PostPageLogic() {
   // 投稿処理
   function submit() {
     const tags = changeToArray(tagString);
-    if (languageString === '') {
+    const languageId = changeToId(languageString);
+
+    if (auth === undefined) {
+      alert('ログインしてください');
+      return;
+    }
+
+    if (languageId === undefined) {
       alert('言語を選択してください');
       return;
     }
-    const languageId = changeToId(languageString);
-    console.log(post, tags, languageId); // eslint-disable-line no-console
+
+    if (post.code === undefined) {
+      alert('コードを入力してください');
+      return;
+    }
+
+    if (post.description === undefined) {
+      alert('説明を入力してください');
+      return;
+    }
+
+    if (post.title === undefined) {
+      alert('タイトルを入力してください');
+      return;
+    }
+
+    const p: Omit<TablesInsert<'post'>, 'id' | 'created_at' | 'deleted_at'> = {
+      code: post.code,
+      description: post.description,
+      lang_id: languageId,
+      title: post.title,
+      user_uid: auth.uid,
+    };
+    void (async () => {
+      const res = await insertPost(p, tags);
+
+      if (res === undefined) {
+        alert('投稿に失敗しました');
+      }
+    })();
   }
 
   return (

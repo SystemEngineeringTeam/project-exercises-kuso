@@ -5,6 +5,7 @@ import { type ChangeEvent, type FormEvent, type ReactElement, useState, useSyncE
 import styles from './index.module.scss';
 import { authAtom } from '@/stores/authAtom';
 import { supabase } from '@/utils/supabase/client';
+import upsertUser from '@/utils/upsertUser';
 
 interface Props {
   children: ReactElement;
@@ -31,12 +32,18 @@ export default function LoginProvider({ children }: Props) {
 
 function LoginPage() {
   const setAuth = useSetAtom(authAtom);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -45,13 +52,21 @@ function LoginPage() {
     void (async () => {
       e.preventDefault();
 
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if (error != null) throw new Error(error.message);
-      if (data.user?.id == null) throw new Error('No user id');
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error != null) throw new Error(error.message);
+        if (data.user?.id == null) throw new Error('No user id');
 
-      // eslint-disable-next-line no-console
-      console.log(data);
-      setAuth({ email, password, uid: data.user?.id });
+        // eslint-disable-next-line no-console
+        console.log(data);
+        await upsertUser(name, data.user.id);
+        setAuth({ email, password, uid: data.user.id });
+      } catch (_) {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error != null) throw new Error(error.message);
+        if (data.user?.id == null) throw new Error('No user id');
+        setAuth({ email, password, uid: data.user.id });
+      }
     })();
   };
 
@@ -60,6 +75,11 @@ function LoginPage() {
       <h1>Login / Signin</h1>
 
       <form onSubmit={onSubmit}>
+        <label htmlFor="email">
+          <span>Name</span>
+          <input id="name" onChange={onChangeName} type="text" value={name} />
+        </label>
+
         <label htmlFor="email">
           <span>Email</span>
           <input id="email" onChange={onChangeEmail} type="email" value={email} />
