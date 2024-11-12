@@ -1,103 +1,16 @@
+'use client';
+
+import { useAtomValue } from 'jotai';
 import styles from './index.module.scss';
 import CodeArea from '@/components/CodeArea';
-import { type Post } from '@/types/post';
-
-const articles: Post[] = [
-  {
-    id: 1,
-    code: 'var num;',
-    description: 'varは使わない方がいいらしいね',
-    title: 'jsでvar使ってみた',
-    crazy_score: 3.4,
-    post_tags: [
-      { id: 2, post_id: 4, tag: 'var' },
-      { id: 1, post_id: 2, tag: 'js' },
-    ],
-    user: {
-      id: 1,
-      name: 'へのへのもへじ',
-      uid: 'ghjkjcfhvbnfalzbsdvgfakndkvadaaf',
-    },
-    language: { id: 3, name: 'JavaScript' },
-  },
-  {
-    id: 2,
-    // eslint-disable-next-line no-template-curly-in-string
-    code: "const [firstName, setFirstName] = useState(''); const [lastName, setLastName] = useState(''); const [fullName, setFullName] = useState('');\n \n useEffect(() => {\n   setFullName(`${firstName} ${lastName}`);}, [firstName, lastName]);",
-    description: 'stateに依存するものはstateに突っ込んでuseEffectで変更しよう!',
-    title: 'useEffectの使い方',
-    crazy_score: 1.4,
-    post_tags: [
-      { id: 4, post_id: 4, tag: 'react' },
-      { id: 4, post_id: 4, tag: 'react' },
-    ],
-    user: {
-      id: 2,
-      name: '愛工太郎',
-      uid: 'fgahjksdnfgvaofawesdrf',
-    },
-    language: { id: 3, name: 'JavaScript' },
-  },
-  {
-    id: 3,
-    // eslint-disable-next-line no-template-curly-in-string
-    code: "const [firstName, setFirstName] = useState('');\n const [lastName, setLastName] = useState('');\n const [fullName, setFullName] = useState('');\n \n useEffect(() => {\n   setFullName(`${firstName} ${lastName}`);\n }, [firstName, lastName]);",
-    description: 'stateに依存するものはstateに突っ込んでuseEffectで変更しよう!',
-    title: 'useEffectの使い方',
-    crazy_score: 1.4,
-    post_tags: [
-      { id: 4, post_id: 4, tag: 'react' },
-      { id: 4, post_id: 4, tag: 'react' },
-    ],
-    user: {
-      id: 2,
-      name: '愛工太郎',
-      uid: 'fgahjksdnfgvaofawesdrf',
-    },
-    language: { id: 3, name: 'JavaScript' },
-  },
-  {
-    id: 4,
-    // eslint-disable-next-line no-template-curly-in-string
-    code: "const [firstName, setFirstName] = useState('');\n const [lastName, setLastName] = useState('');\n const [fullName, setFullName] = useState('');\n \n useEffect(() => {\n   setFullName(`${firstName} ${lastName}`);\n }, [firstName, lastName]);",
-    description: 'stateに依存するものはstateに突っ込んでuseEffectで変更しよう!',
-    title: 'useEffectの使い方',
-    crazy_score: 1.4,
-    post_tags: [
-      { id: 4, post_id: 4, tag: 'react' },
-      { id: 4, post_id: 4, tag: 'react' },
-    ],
-    user: {
-      id: 2,
-      name: '愛工太郎',
-      uid: 'fgahjksdnfgvaofawesdrf',
-    },
-    language: { id: 3, name: 'JavaScript' },
-  },
-  {
-    id: 5,
-    // eslint-disable-next-line no-template-curly-in-string
-    code: "const [firstName, setFirstName] = useState('');\n const [lastName, setLastName] = useState('');\n const [fullName, setFullName] = useState('');\n \n useEffect(() => {\n   setFullName(`${firstName} ${lastName}`);\n }, [firstName, lastName]);",
-    description: 'stateに依存するものはstateに突っ込んでuseEffectで変更しよう!',
-    title: 'useEffectの使い方',
-    crazy_score: 1.4,
-    post_tags: [
-      { id: 4, post_id: 4, tag: 'react' },
-      { id: 4, post_id: 4, tag: 'react' },
-    ],
-    user: {
-      id: 2,
-      name: '愛工太郎',
-      uid: 'fgahjksdnfgvaofawesdrf',
-    },
-    language: { id: 3, name: 'JavaScript' },
-  },
-];
+import { userPostListAtom } from '@/stores/userPostListAtom';
 
 export default function Page() {
+  const posts = useAtomValue(userPostListAtom);
+
   return (
     <div className={styles.containers}>
-      {articles.map((post) => (
+      {posts.map((post) => (
         <div key={post.id} className={styles.container}>
           <h1>{post.title}</h1>
           <div className={styles.tags}>
@@ -115,7 +28,7 @@ export default function Page() {
               <img alt="unko" src="unko.svg" style={{ ['--score' as string]: `${post.crazy_score * 20}%` }} />
               <img alt="unko" src="unko.svg" />
             </div>
-            <p>{post.crazy_score}</p>
+            <p>{Number.isNaN(post.crazy_score) ? '評価がありません' : post.crazy_score}</p>
           </div>
         </div>
       ))}
