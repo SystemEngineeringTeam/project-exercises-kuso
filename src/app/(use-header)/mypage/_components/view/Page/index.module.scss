@@ -6,11 +6,15 @@
   gap: 25px;
 
   .container {
-    padding: 20px 50px;
+    padding: 15px min(50px, 7%);
     border: solid 1.5px #333; /*線の種類・太さ・色*/
-    width: 100%;
+    width: 95%;
     max-width: 800px;
     border-radius: 10px; /*角の丸み*/
+
+    h1 {
+      font-size: $font-size-lg;
+    }
 
     .tags {
       display: flex;
@@ -37,8 +41,8 @@
     }
     .kuso_box {
       position: relative;
-      width: 225px;
-      height: 34px;
+      width: 225px; 
+      height: 35px;
       img {
         position: absolute;
         background-color: #ffff;
@@ -51,6 +55,21 @@
         }
         pointer-events: none;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .score_box {
+    p{
+      padding-top: 0px;
+    }
+  }
+
+  .kuso_box {
+    width: 150px;
+    img {
+      width: 150px;
     }
   }
 }
