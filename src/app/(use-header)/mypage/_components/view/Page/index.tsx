@@ -1,3 +1,5 @@
+'use client';
+
 import { useAtomValue } from 'jotai';
 import styles from './index.module.scss';
 import CodeArea from '@/components/CodeArea';
@@ -26,7 +28,7 @@ export default function Page() {
               <img alt="unko" src="unko.svg" style={{ ['--score' as string]: `${post.crazy_score * 20}%` }} />
               <img alt="unko" src="unko.svg" />
             </div>
-            <p>{post.crazy_score}</p>
+            <p>{Number.isNaN(post.crazy_score) ? '評価がありません' : post.crazy_score}</p>
           </div>
         </div>
       ))}
