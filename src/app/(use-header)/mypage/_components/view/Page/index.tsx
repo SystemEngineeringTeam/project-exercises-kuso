@@ -10,6 +10,8 @@ export default function Page() {
 
   return (
     <div className={styles.containers}>
+      {posts.length === 0 && <p>まだ投稿していません!</p>}
+
       {posts.map((post) => (
         <div key={post.id} className={styles.container}>
           <h1>{post.title}</h1>
