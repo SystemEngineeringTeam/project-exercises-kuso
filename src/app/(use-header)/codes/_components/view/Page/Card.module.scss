@@ -1,15 +1,19 @@
 .container {
-  padding: 20px 50px;
+  padding: min(15px, 2.5%) min(50px, 5%);
   border: solid 1.5px #333; /*線の種類・太さ・色*/
-  width: 100%;
+  width: 95%;
   max-width: 800px;
   border-radius: 10px; /*角の丸み*/
+
+  h1 {
+    font-size: $font-size-lg;
+  }
 
   .tags {
     display: flex;
     justify-content: start;
     p {
-      padding: 0.5px 15px;
+      padding: 0.5px min(15px, 2%);
       border: solid 2px #333; /*線の種類・太さ・色*/
       border-radius: 10px; /*角の丸み*/
     }
@@ -64,6 +68,31 @@
       &:hover {
         border-bottom: 1.5px solid;
       }
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    h1 {
+      font-size: $font-size-md;
+    }
+
+    p {
+      font-size: $font-size-sm;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    button {
+      font-size: $font-size-xs;
+    }
+
+    span {
+      font-size: $font-size-sm;
     }
   }
 }
