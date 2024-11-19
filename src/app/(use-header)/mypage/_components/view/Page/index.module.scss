@@ -6,19 +6,23 @@
   gap: 25px;
 
   .container {
-    padding: 20px 50px;
+    padding: min(15px, 2.5%) min(50px, 5%);
     border: solid 1.5px #333; /*線の種類・太さ・色*/
-    width: 100%;
+    width: 95%;
     max-width: 800px;
     border-radius: 10px; /*角の丸み*/
+
+    h1 {
+      font-size: $font-size-lg;
+    }
 
     .tags {
       display: flex;
       justify-content: start;
       p {
-        padding: 0.5px 15px;
-        border: solid 2px #333; /*線の種類・太さ・色*/
-        border-radius: 10px; /*角の丸み*/
+        padding: 0.5px min(15px, 3%);
+        background-color: #e3e3e3;
+        border-radius: 6px;
       }
     }
 
@@ -38,7 +42,7 @@
     .kuso_box {
       position: relative;
       width: 225px;
-      height: 34px;
+      height: 35px;
       img {
         position: absolute;
         background-color: #ffff;
@@ -50,6 +54,41 @@
           opacity: 0.1;
         }
         pointer-events: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .containers {
+    .container {
+      h1 {
+        font-size: $font-size-md;
+      }
+
+      p {
+        font-size: $font-size-sm;
+      }
+
+      summary {
+        font-size: $font-size-sm;
+      }
+
+      span {
+        font-size: $font-size-sm;
+      }
+
+      .score_box {
+        p {
+          padding-top: 0px;
+        }
+      }
+
+      .kuso_box {
+        width: 150px;
+        img {
+          width: 150px;
+        }
       }
     }
   }
