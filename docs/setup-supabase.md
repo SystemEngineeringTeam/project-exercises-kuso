@@ -52,6 +52,10 @@ yarn supabase db diff --schema public
 yarn supabase db reset
 ```
 
+## リモートDBをリセット
+```shell
+yarn supabase db reset --linked <project-ref>
+
 ## ローカルの DB を push
 ```shell
 yarn supabase db push

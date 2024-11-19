@@ -14,11 +14,18 @@
   }
 
   input,
-  select {
+  select,
+  textarea {
     width: 40vw;
     outline: none;
     border: none;
     border-bottom: 1px solid;
+  }
+
+  textarea {
+    padding: 10px 10px 0 0;
+    resize: vertical;
+    height: 200px;
   }
 }
 
@@ -49,10 +56,14 @@
     border-radius: 10px;
     background-color: $background-color;
     cursor: pointer;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:hover {
       background-color: color-mix(in srgb, $background-color, $on-background-color 10%);
     }
   }
+}
+
+.generating {
+  text-align: center;
 }

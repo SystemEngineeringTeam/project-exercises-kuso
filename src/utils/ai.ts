@@ -23,12 +23,10 @@ export async function askAIResponse(sourceCode: string, lang?: string): Promise<
   ユーモアのあるソースコードのタイトルを30文字以内で考えてください。
   その後ソースコードのダメな点を指摘してください。
 
-  その後、どのようなソースコードを記述するべきなのか説明してください。
-
   では, 次の形式で返答してください:
   \`\`\`jsonschema
   {
-    "titile: "説明のタイトル",
+    "title: "説明のタイトル",
     "description": "説明の内容"
   }
   \`\`\`
@@ -36,11 +34,16 @@ export async function askAIResponse(sourceCode: string, lang?: string): Promise<
 
   const response = await model.generateContent(prompt);
   const text: string = response.response.text();
-  const res = zAIResponse.safeParse(JSON.parse(text));
-  if (res.success) {
-    return res.data;
+  try {
+    const res = zAIResponse.safeParse(JSON.parse(text));
+    if (res.success === true) {
+      return res.data;
+    }
+    return undefined;
+  } catch (e) {
+    console.error(e);
+    return undefined;
   }
-  return undefined;
 }
 
 export async function AskAnyAIResponse(prompt: string): Promise<AIResponse | undefined> {
@@ -53,9 +56,14 @@ export async function AskAnyAIResponse(prompt: string): Promise<AIResponse | und
 
   const response = await model.generateContent(prompt);
   const text: string = response.response.text();
-  const res = zAIResponse.safeParse(JSON.parse(text));
-  if (res.success) {
-    return res.data;
+  try {
+    const res = zAIResponse.safeParse(JSON.parse(text));
+    if (res.success === true) {
+      return res.data;
+    }
+  } catch (e) {
+    console.error(e);
   }
+
   return undefined;
 }

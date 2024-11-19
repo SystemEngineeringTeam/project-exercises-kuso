@@ -6,6 +6,7 @@ import Page from '../view/Page';
 import { authAtom } from '@/stores/authAtom';
 import { langAtom } from '@/stores/langAtom';
 import { type TablesInsert } from '@/types/supabase';
+import { askAIResponse } from '@/utils/ai';
 import insertPost from '@/utils/insertPost';
 
 type Post = Partial<TablesInsert<'post'>>;
@@ -14,6 +15,7 @@ export default function PostPageLogic() {
   const [post, setPost] = useState<Post>({});
   const [tagString, setTagString] = useState<string>('');
   const [languageString, setLanguageString] = useState<string>('');
+  const [aiState, setAiState] = useState<'none' | 'waiting' | 'generated'>('none');
 
   const auth = useAtomValue(authAtom);
   const languages = useAtomValue(langAtom);
@@ -46,6 +48,38 @@ export default function PostPageLogic() {
     // 言語のnameを取得
     const langage = languages.find((lang) => lang.id === langId);
     return langage?.id;
+  }
+
+  async function generateByAI() {
+    if (languageString === '') {
+      alert('言語を選択してください');
+      return;
+    }
+    if (post.code === undefined) {
+      alert('コードを入力してください');
+      return;
+    }
+
+    const languageId = changeToId(languageString);
+    const languageName = languages.find((lang) => lang.id === languageId)?.name;
+    if (languageName === undefined) {
+      alert('言語が見つかりません');
+      return;
+    }
+
+    setAiState('waiting');
+    try {
+      const res = await askAIResponse(post.code, languageName);
+      if (res === undefined) {
+        alert('AIによる生成に失敗しました');
+        return;
+      }
+
+      const { title, description } = res;
+      setPost((prev) => ({ ...prev, description, title }));
+    } finally {
+      setAiState('generated');
+    }
   }
 
   // 投稿処理
@@ -96,6 +130,8 @@ export default function PostPageLogic() {
 
   return (
     <Page
+      aiState={aiState}
+      generateByAI={generateByAI}
       language={languages}
       post={post}
       setCode={setCode}

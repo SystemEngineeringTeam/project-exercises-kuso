@@ -7,11 +7,13 @@ import { type TablesInsert } from '@/types/supabase';
 
 type Post = Partial<TablesInsert<'post'>>;
 interface PageProps {
+  aiState: 'none' | 'waiting' | 'generated';
   post: Post;
   language: PostLanguage[];
   setCode: (code: string) => void;
   setDescription: (description: string) => void;
   setTitle: (title: string) => void;
+  generateByAI: () => Promise<void>;
   submit: () => void;
   tagString: string;
   setTagString: Dispatch<SetStateAction<string>>;
@@ -19,11 +21,13 @@ interface PageProps {
 }
 
 export default function Page({
+  aiState,
   post,
   language,
   setCode,
   setDescription,
   setTitle,
+  generateByAI,
   submit,
   tagString,
   setTagString,
@@ -33,28 +37,6 @@ export default function Page({
     <div>
       <div className={styles.container}>
         <div className={styles.card}>
-          <p>Title</p>
-          <input
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="タイトルを入力してください"
-            type="text"
-            value={post.title ?? ''}
-          />
-        </div>
-        <div className={styles.card}>
-          <p>Description</p>
-          <input
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            placeholder="説明を入力してください"
-            type="text"
-            value={post.description ?? ''}
-          />
-        </div>
-        <div className={styles.card}>
           <p>Language</p>
           <select
             name="languages"
@@ -62,9 +44,7 @@ export default function Page({
               setLanguageString(e.target.value);
             }}
           >
-            {/* ここにlanguageのIDを入れる,文字のところにはnameを入れる */}
             <option value="">言語を選択してください</option>
-            {/* ここに言語の選択肢を追加していく */}
             {language.map((lang) => (
               <option key={lang.id} value={String(lang.id)}>
                 {lang.name}
@@ -72,6 +52,7 @@ export default function Page({
             ))}
           </select>
         </div>
+
         <div className={styles.card}>
           <p>Tags</p>
           <input
@@ -98,10 +79,52 @@ export default function Page({
       </div>
 
       <div className={styles.buttonArea}>
-        <button onClick={submit} type="button">
-          投稿
+        <button
+          disabled={aiState === 'waiting'}
+          onClick={() => {
+            void generateByAI();
+          }}
+          type="button"
+        >
+          AI生成
         </button>
       </div>
+
+      {aiState === 'waiting' && <p className={styles.generating}>AI生成中...</p>}
+
+      {aiState === 'generated' && (
+        <>
+          <div className={styles.container}>
+            <div className={styles.card}>
+              <p>Title</p>
+              <input
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+                placeholder="タイトルを入力してください"
+                type="text"
+                value={post.title ?? ''}
+              />
+            </div>
+            <div className={styles.card}>
+              <p>Description</p>
+              <textarea
+                className={styles.description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                value={post.description ?? ''}
+              />
+            </div>
+          </div>
+
+          <div className={styles.buttonArea}>
+            <button onClick={submit} type="button">
+              投稿
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

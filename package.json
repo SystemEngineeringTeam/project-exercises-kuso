@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "seed:no-rest": "dotenvx run --env-file=.env.local -- jiti ./supabase/seed/index.ts",
     "seed": "dotenvx run --env-file=.env.local -- jiti ./supabase/seed/index.ts",
-    "preseed": "yarn supabase db reset"
+    "reset": "yarn supabase db reset"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
