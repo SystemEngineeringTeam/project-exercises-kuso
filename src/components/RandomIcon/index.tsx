@@ -7,7 +7,7 @@ interface Props {
 
 export default function RandomIcon({ userName }: Props) {
   const hash = useMemo(() => Array.from(userName).reduce((acc, char) => acc + char.charCodeAt(0), 0), []);
-  const color = `hsl(${(hash) % 360}, 70%, 50%)`;
+  const color = `hsl(${hash % 360}, 70%, 50%)`;
 
   return <OldManIcon color={color} />;
 }
