@@ -54,3 +54,21 @@
     }
   }
 }
+
+@media (max-width: 540px) {
+  .main {
+    h1 {
+      &::after,
+      &::before {
+        width: 40px;
+      }
+      &::before {
+        left: -20px;
+      }
+
+      &::after {
+        right: -23px;
+      }
+    }
+  }
+}
