@@ -53,8 +53,7 @@ function LoginPage() {
       e.preventDefault();
 
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error != null) throw new Error(error.message);
+        const { data } = await supabase.auth.signInWithPassword({ email, password });
         if (data.user?.id == null) throw new Error('No user id');
 
         // eslint-disable-next-line no-console
