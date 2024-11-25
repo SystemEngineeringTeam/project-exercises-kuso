@@ -1,14 +1,10 @@
 .container {
   padding: min(30px, 2.5%) min(50px, 5%);
   border: solid 16px rgb(168, 168, 168); /*線の種類・太さ・色*/
-  box-shadow:
-    // 0px 0px 0px 15px rgba(71, 71, 71, 0.4),
-    5px 5px 10px 15px rgba(153, 153, 153, 0.6);
-
+  box-shadow: 5px 5px 10px 15px rgba(153, 153, 153, 0.6);
   outline: inset 10px rgba(32, 32, 32, 0.5);
   width: 95%;
   max-width: 800px;
-  // border-radius: 10px; /*角の丸み*/
 
   h1 {
     font-size: $font-size-lg;
@@ -46,17 +42,6 @@
       align-items: center;
     }
   }
-
-  // .code_area_box {
-  //   margin: 30px 0;
-  //   border-top: inset 8px rgba(31, 31, 36, 0.75); /*線の種類・太さ・色*/
-  //   border-bottom: inset 8px rgb(31, 31, 36); /*線の種類・太さ・色*/
-  //   border-left: inset 8px rgba(31, 31, 36, 0.75); /*線の種類・太さ・色*/
-  //   border-right: inset 8px rgb(31, 31, 36); /*線の種類・太さ・色*/
-  //   box-shadow:
-  //     0px 0px 0px 12px rgba(71, 71, 71, 0.4),
-  //     5px 5px 10px 12px rgba(153, 153, 153, 0.6);
-  // }
 
   .score_box {
     display: flex;
