@@ -11,4 +11,5 @@ export interface Post {
   description: string;
   code: string;
   lang: (typeof LANGUAGES)[number];
+  tags?: string[];
 }

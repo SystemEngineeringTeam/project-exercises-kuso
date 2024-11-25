@@ -72,6 +72,7 @@ export const POSTS = [
     description: 'This is a simple "Hello, world!" program in TypeScript.',
     code: 'console.log("Hello, world!");',
     lang: 'TypeScript',
+    tags: ['TypeScript', 'Hello, world'],
   },
   {
     user_uid: USERS[1].uid,
@@ -79,6 +80,7 @@ export const POSTS = [
     description: 'This is a simple "Hello, world!" program in Python.',
     code: 'print("Hello, world!")',
     lang: 'Python',
+    tags: ['Python', 'Hello, world'],
   },
   {
     user_uid: USERS[2].uid,
@@ -88,6 +90,7 @@ export const POSTS = [
     // eslint-disable-next-line no-template-curly-in-string
     code: 'const [firstName, setFirstName] = useState("");\nconst [lastName, setLastName] = useState("");\nconst [fullName, setFullName] = useState("");\n\nuseEffect(() => {\n  setFullName(`${firstName} ${lastName}`);\n}, [firstName, lastName]);',
     lang: 'TypeScript',
+    tags: ['TypeScript', '無限レンダリング', 'useEffect'],
   },
   {
     user_uid: USERS[0].uid,
@@ -95,6 +98,7 @@ export const POSTS = [
     description: '条件式を忘れたことで無限ループが発生します。',
     code: 'while True:\n    print("無限ループだよ！")',
     lang: 'Python',
+    tags: ['Python', '無限ループ'],
   },
   {
     user_uid: USERS[4].uid,
@@ -102,6 +106,7 @@ export const POSTS = [
     description: '「==」演算子の型変換により予期せぬ動作が起きます。',
     code: 'console.log(0 == "0"); // true\nconsole.log(0 == []);  // true\nconsole.log(0 == false); // true',
     lang: 'JavaScript',
+    tags: ['JavaScript', '==', '演算子'],
   },
   {
     user_uid: USERS[1].uid,
@@ -109,6 +114,7 @@ export const POSTS = [
     description: '多重定義されたクラスセレクタによる混乱。',
     code: '.box {\n  width: 100px;\n}\n\n.box.box-large {\n  width: 50px;\n}\n\n.box {\n  width: 150px;\n}',
     lang: 'CSS',
+    tags: ['CSS', 'スタイル', '継承'],
   },
   {
     user_uid: USERS[3].uid,
@@ -116,6 +122,7 @@ export const POSTS = [
     description: '一見して意味が分からないマクロを濫用した例。',
     code: '#define SQUARE(x) x*x\nint main() {\n  int result = SQUARE(1 + 2); // 期待と違う計算結果に！\n  return 0;\n}',
     lang: 'C++',
+    tags: ['C++', 'マクロ'],
   },
   {
     user_uid: USERS[5].uid,
@@ -123,6 +130,7 @@ export const POSTS = [
     description: '関数内でグローバル変数を直接変更して混乱を招く例。',
     code: 'counter = 0\n\ndef increment():\n    global counter\n    counter += 1\n    return counter\n\nprint(increment())\nprint(increment())',
     lang: 'Python',
+    tags: ['Python', 'グローバル変数'],
   },
   {
     user_uid: USERS[6].uid,
@@ -130,6 +138,7 @@ export const POSTS = [
     description: '「this」のコンテキストが関数の呼び出し方法で変わります。',
     code: 'const obj = {\n  value: 42,\n  getValue: function() {\n    return this.value;\n  }\n};\nconst getValue = obj.getValue;\nconsole.log(getValue()); // undefined\nconsole.log(obj.getValue()); // 42',
     lang: 'JavaScript',
+    tags: ['JavaScript', 'this'],
   },
   {
     user_uid: USERS[7].uid,
@@ -138,5 +147,6 @@ export const POSTS = [
     // eslint-disable-next-line no-template-curly-in-string
     code: 'const userInput = "1 OR 1=1";\nconst query = `SELECT * FROM users WHERE id = ${userInput}`;\nconsole.log(query); // 危険なSQLクエリが生成される',
     lang: 'JavaScript',
+    tags: ['SQL', 'インジェクション'],
   },
 ] as const satisfies Post[];

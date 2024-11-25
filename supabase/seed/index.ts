@@ -24,6 +24,17 @@ async function addLanguages(languages: string[]) {
   `);
 }
 
+async function addPostTag(postId: number, tags: string[]) {
+  await Promise.all(
+    tags.map(async (tag) => {
+      await client.query(`
+        INSERT INTO post_tag (post_id, tag)
+        VALUES (${postId}, '${tag}')
+      `);
+    }),
+  );
+}
+
 async function addPost(posts: Post[]) {
   await Promise.all(
     posts.map(async (post) => {
@@ -33,12 +44,21 @@ async function addPost(posts: Post[]) {
       INSERT INTO post (user_uid, title, description, code, lang_id)
       VALUES ('${post.user_uid}', '${post.title}', '${post.description}', '${post.code}', ${langId})
     `);
+      const res2 = await client.query(`SELECT id FROM post WHERE title = '${post.title}'`);
+      const postId = res2.rows[0].id as number;
+      if (post.tags !== undefined) {
+        await addPostTag(postId, post.tags);
+      }
     }),
   );
 }
 
 async function seed() {
-  await addUsers(USERS);
+  try {
+    await addUsers(USERS);
+  } catch (e) {
+    console.error(e);
+  }
   await addLanguages(LANGUAGES);
   await addPost(POSTS);
 }
