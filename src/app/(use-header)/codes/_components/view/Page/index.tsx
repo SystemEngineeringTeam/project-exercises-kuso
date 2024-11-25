@@ -13,9 +13,11 @@ export default function Page() {
     <div className={styles.containers}>
       <SearchSection />
 
-      {articles.map((post) => (
-        <Card key={post.id} post={post} />
-      ))}
+      <div className={styles.posts}>
+        {articles.map((post) => (
+          <Card key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 }

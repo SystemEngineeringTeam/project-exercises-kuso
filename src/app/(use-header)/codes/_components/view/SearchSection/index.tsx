@@ -22,25 +22,40 @@ export default function SearchSection() {
     setValue(e.target.value);
   };
 
+  const deleteWord = (index: number) => {
+    setSearchWords(searchWords.filter((_, i) => i !== index));
+  };
+
   return (
     <section className={styles.section}>
-      <p>
-        {searchWords.map((w) => (
-          <span key={w}>{w}</span>
+      <h3>キーワード検索</h3>
+
+      <label className={styles.keywords} htmlFor="keywords">
+        {searchWords.map((w, i) => (
+          <button
+            key={w}
+            onClick={() => {
+              deleteWord(i);
+            }}
+            type="button"
+          >
+            {w}
+          </button>
         ))}
-      </p>
-      <input
-        onChange={onChange}
-        onCompositionEnd={() => {
-          setIsComposing(false);
-        }}
-        onCompositionStart={() => {
-          setIsComposing(true);
-        }}
-        onKeyDown={onReturnKeyDown}
-        type="text"
-        value={value}
-      />
+        <input
+          id="keywords"
+          onChange={onChange}
+          onCompositionEnd={() => {
+            setIsComposing(false);
+          }}
+          onCompositionStart={() => {
+            setIsComposing(true);
+          }}
+          onKeyDown={onReturnKeyDown}
+          type="text"
+          value={value}
+        />
+      </label>
     </section>
   );
 }
