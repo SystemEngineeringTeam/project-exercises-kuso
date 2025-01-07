@@ -30,7 +30,7 @@ export default function Page() {
               <img alt="unko" src="unko.svg" style={{ ['--score' as string]: `${post.crazy_score * 20}%` }} />
               <img alt="unko" src="unko.svg" />
             </div>
-            <p>{Number.isNaN(post.crazy_score) ? '評価がありません' : post.crazy_score}</p>
+            <p>{Number.isNaN(post.crazy_score) ? '評価がありません' : post.crazy_score.toFixed(1)}</p>
           </div>
         </div>
       ))}
